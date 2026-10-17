@@ -1,0 +1,11 @@
+co\edu\udistrital\template\model\Substraction.class
+co\edu\udistrital\template\view\AbstractIn.class
+co\edu\udistrital\template\view\ConsoleIn.class
+co\edu\udistrital\template\model\Multiplication.class
+co\edu\udistrital\template\view\AbstractOut.class
+co\edu\udistrital\template\model\Division.class
+co\edu\udistrital\template\controller\Client.class
+co\edu\udistrital\template\view\ConsoleOut.class
+co\edu\udistrital\template\Template.class
+co\edu\udistrital\template\model\Addition.class
+co\edu\udistrital\template\model\OperationTemplate.class
