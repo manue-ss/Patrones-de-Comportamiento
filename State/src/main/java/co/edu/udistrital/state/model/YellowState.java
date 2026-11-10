@@ -15,12 +15,7 @@ public class YellowState extends AbstractTrafficLightState {
     }
 
     public YellowState(int durationSeconds) {
-        super(
-                "ESTADO AMARILLO (PRECAUCIÓN)",
-                TrafficLightColor.YELLOW,
-                durationSeconds,
-                "PRECAUCIÓN: Reduzca la velocidad, próximo cambio a luz roja."
-        );
+        super("ESTADO AMARILLO", TrafficLightColor.YELLOW, durationSeconds);
     }
 
     @Override

@@ -15,12 +15,7 @@ public class RedState extends AbstractTrafficLightState {
     }
 
     public RedState(int durationSeconds) {
-        super(
-                "ESTADO ROJO (DETENERSE)",
-                TrafficLightColor.RED,
-                durationSeconds,
-                "ALTO TOTAL: Vehículos detenidos. Paso peatonal habilitado."
-        );
+        super("ESTADO ROJO", TrafficLightColor.RED, durationSeconds);
     }
 
     @Override

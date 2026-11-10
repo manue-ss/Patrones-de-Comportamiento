@@ -34,23 +34,11 @@ public interface ITrafficLightContext {
     void requestNextState();
 
     /**
-     * Reinicia el contador regresivo del estado actual a su duración inicial completa.
-     */
-    void resetCurrentStateTimer();
-
-    /**
      * Obtiene los segundos restantes para el próximo cambio de estado (mostrados en la lámpara de 7 segmentos).
      *
      * @return Segundos restantes (entre 1 y 99).
      */
     int getRemainingSeconds();
-
-    /**
-     * Obtiene el identificador de la intersección donde opera el semáforo.
-     *
-     * @return Nombre de la intersección vial.
-     */
-    String getIntersectionName();
 
     /**
      * Registra un observador para recibir actualizaciones de estado y temporizador.

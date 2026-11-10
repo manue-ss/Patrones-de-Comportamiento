@@ -86,20 +86,11 @@ public class Client implements ITrafficLightObserver {
         try {
             String previousState = trafficLightContext.getState().getStateName();
             trafficLightContext.requestNextState();
-            out.show("[TRANSICIÓN FORZADA] Cambio manual desde '" + previousState
+            out.show("[TRANSICIÓN FORZADA] Cambio desde '" + previousState
                     + "' hacia '" + trafficLightContext.getState().getStateName() + "'.");
         } catch (IllegalArgumentException e) {
             out.showErr("Fallo al forzar transición de estado: " + e.getMessage());
         }
-    }
-
-    /**
-     * Reinicia el contador regresivo del estado actual a su duración configurada.
-     */
-    public void resetStateTimer() {
-        trafficLightContext.resetCurrentStateTimer();
-        out.show("[REINICIO DE TEMPORIZADOR] Display de 7 segmentos restablecido a "
-                + String.format("%02d", trafficLightContext.getRemainingSeconds()) + " segundos.");
     }
 
     /**
@@ -116,32 +107,11 @@ public class Client implements ITrafficLightObserver {
     }
 
     /**
-     * Conmuta directamente al Estado Rojo con su duración estándar.
-     */
-    public void changeToRedState() {
-        changeState(new RedState());
-    }
-
-    /**
-     * Conmuta directamente al Estado Verde con su duración estándar.
-     */
-    public void changeToGreenState() {
-        changeState(new GreenState());
-    }
-
-    /**
-     * Conmuta directamente al Estado Amarillo con su duración estándar.
-     */
-    public void changeToYellowState() {
-        changeState(new YellowState());
-    }
-
-    /**
      * Prueba la creación de un estado personalizado validando los rangos de duración permitidos
      * para el display de 7 segmentos de 2 dígitos.
      *
-     * @param colorType       Tipo de color del estado a probar.
-     * @param customDuration  Duración en segundos a validar.
+     * @param colorType      Tipo de color del estado a probar.
+     * @param customDuration Duración en segundos a validar.
      */
     public void applyCustomDurationState(TrafficLightColor colorType, int customDuration) {
         try {
@@ -154,7 +124,7 @@ public class Client implements ITrafficLightObserver {
                 case YELLOW -> new YellowState(customDuration);
             };
             trafficLightContext.setState(customState);
-            out.show("[CONFIGURACIÓN EXITOSA] Estado " + customState.getStateName()
+            out.show("[CONFIGURACIÓN EXITOSA] " + customState.getStateName()
                     + " configurado con duración de " + customDuration + " s.");
         } catch (IllegalArgumentException e) {
             out.showErr("Protección de invariante en duración de estado: " + e.getMessage());
@@ -219,15 +189,6 @@ public class Client implements ITrafficLightObserver {
     }
 
     /**
-     * Obtiene el nombre de la intersección gestionada por el semáforo.
-     *
-     * @return Nombre de la intersección.
-     */
-    public String getIntersectionName() {
-        return trafficLightContext.getIntersectionName();
-    }
-
-    /**
      * Obtiene la abstracción de entrada inyectada.
      *
      * @return Instancia de {@link IIn}.
@@ -237,20 +198,12 @@ public class Client implements ITrafficLightObserver {
     }
 
     @Override
-    public void onTrafficLightUpdate(
-            String stateName,
-            TrafficLightColor activeColor,
-            int remainingSeconds,
-            int totalDuration,
-            String actionMessage
-    ) {
+    public void onTrafficLightUpdate(TrafficLightColor activeColor, int remainingSeconds) {
         out.show(String.format(
-                "  -> [OBSERVER NOTIFICACIÓN] %-28s | Lámpara 1 (7-Seg): [%02d s - %s] | Lámpara 2 (Color): [%-8s] | %s",
-                stateName,
+                "  -> [OBSERVER NOTIFICACIÓN] Lámpara 1 (7-Seg): [%02d s - %s] | Lámpara 2 (Color): [%s]",
                 remainingSeconds,
                 activeColor.getDisplayName(),
-                activeColor.getDisplayName(),
-                actionMessage
+                activeColor.getDisplayName()
         ));
     }
 }

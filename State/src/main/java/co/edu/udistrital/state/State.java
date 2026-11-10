@@ -30,10 +30,7 @@ public class State {
 
         // 2. Instanciación del Estado Inicial y del Contexto (Modelo - Patrón State + Observer)
         ITrafficLightState initialState = new RedState(3);
-        ITrafficLightContext trafficLightContext = new ModernTrafficLight(
-                "Av. Caracas con Calle 40 - Universidad Distrital",
-                initialState
-        );
+        ITrafficLightContext trafficLightContext = new ModernTrafficLight(initialState);
 
         // 3. Ensamblaje del Cliente Orquestador (Controlador)
         Client client = new Client(trafficLightContext, in, out);
@@ -97,7 +94,7 @@ public class State {
 
         // 2.7 Validación de invariantes en constructores de Estados y Contexto
         try {
-            new ModernTrafficLight("   ", new RedState());
+            new ModernTrafficLight(null);
         } catch (IllegalArgumentException e) {
             out.showErr("Protección de invariante en constructor de Contexto: " + e.getMessage());
         }
@@ -117,14 +114,10 @@ public class State {
 
         // Restablecemos el Estado Rojo estándar (10 s) antes de abrir la interfaz gráfica JavaFX
         client.showHeader("LANZANDO INTERFAZ GRÁFICA JAVAFX (SEMÁFORO MODERNO DE 2 LÁMPARAS)");
-        client.changeToRedState();
+        client.changeState(new RedState());
         client.displayCurrentStatus();
 
         // 4. Inicio de la GUI en JavaFX (suscrita en paralelo mediante el patrón Observer)
-        if (args != null && args.length > 0 && "--headless".equalsIgnoreCase(args[0])) {
-            out.show("[MODO HEADLESS] Ejecución por consola finalizada sin abrir ventana JavaFX.");
-        } else {
-            TrafficLightGuiApp.launchGui(client, args);
-        }
+        TrafficLightGuiApp.launchGui(client, args);
     }
 }

@@ -14,13 +14,11 @@ public abstract class AbstractTrafficLightState implements ITrafficLightState {
     protected final String stateName;
     protected final TrafficLightColor color;
     protected final int durationSeconds;
-    protected final String actionMessage;
 
     protected AbstractTrafficLightState(
             String stateName,
             TrafficLightColor color,
-            int durationSeconds,
-            String actionMessage
+            int durationSeconds
     ) {
         if (stateName == null || stateName.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del estado del semáforo no puede ser nulo ni vacío.");
@@ -35,13 +33,9 @@ public abstract class AbstractTrafficLightState implements ITrafficLightState {
                     + durationSeconds + ")."
             );
         }
-        if (actionMessage == null || actionMessage.trim().isEmpty()) {
-            throw new IllegalArgumentException("El mensaje de acción vial no puede ser nulo ni vacío.");
-        }
         this.stateName = stateName.trim();
         this.color = color;
         this.durationSeconds = durationSeconds;
-        this.actionMessage = actionMessage.trim();
     }
 
     /**
@@ -68,10 +62,5 @@ public abstract class AbstractTrafficLightState implements ITrafficLightState {
     @Override
     public int getDurationSeconds() {
         return durationSeconds;
-    }
-
-    @Override
-    public String getActionMessage() {
-        return actionMessage;
     }
 }

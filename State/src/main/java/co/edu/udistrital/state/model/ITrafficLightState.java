@@ -35,11 +35,4 @@ public interface ITrafficLightState {
      * @return Duración en segundos (mayor a cero).
      */
     int getDurationSeconds();
-
-    /**
-     * Obtiene el mensaje o directriz vial para los conductores y peatones en este estado.
-     *
-     * @return Descripción de la directriz vial.
-     */
-    String getActionMessage();
 }

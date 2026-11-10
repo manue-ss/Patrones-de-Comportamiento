@@ -11,17 +11,8 @@ public interface ITrafficLightObserver {
     /**
      * Se invoca automáticamente cuando el semáforo avanza un segundo o realiza una transición de estado.
      *
-     * @param stateName        Nombre descriptivo del estado actual.
      * @param activeColor      Color actual que exhiben ambas lámparas (7 segmentos y lámpara plena).
      * @param remainingSeconds Segundos restantes para el cambio de estado mostrados en la lámpara de 7 segmentos.
-     * @param totalDuration    Duración total configurada para el estado actual.
-     * @param actionMessage    Instrucción vial asociada al estado actual.
      */
-    void onTrafficLightUpdate(
-            String stateName,
-            TrafficLightColor activeColor,
-            int remainingSeconds,
-            int totalDuration,
-            String actionMessage
-    );
+    void onTrafficLightUpdate(TrafficLightColor activeColor, int remainingSeconds);
 }

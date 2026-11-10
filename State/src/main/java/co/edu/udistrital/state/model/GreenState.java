@@ -15,12 +15,7 @@ public class GreenState extends AbstractTrafficLightState {
     }
 
     public GreenState(int durationSeconds) {
-        super(
-                "ESTADO VERDE (AVANZAR)",
-                TrafficLightColor.GREEN,
-                durationSeconds,
-                "VÍA LIBRE: Circulación vehicular activa con normalidad."
-        );
+        super("ESTADO VERDE", TrafficLightColor.GREEN, durationSeconds);
     }
 
     @Override

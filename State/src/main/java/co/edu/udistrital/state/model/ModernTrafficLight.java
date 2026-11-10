@@ -12,19 +12,14 @@ import java.util.List;
  */
 public class ModernTrafficLight implements ITrafficLightContext {
 
-    private final String intersectionName;
     private final List<ITrafficLightObserver> observers;
     private ITrafficLightState currentState;
     private int remainingSeconds;
 
-    public ModernTrafficLight(String intersectionName, ITrafficLightState initialState) {
-        if (intersectionName == null || intersectionName.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la intersección del semáforo no puede ser nulo ni vacío.");
-        }
+    public ModernTrafficLight(ITrafficLightState initialState) {
         if (initialState == null) {
             throw new IllegalArgumentException("El estado inicial del semáforo no puede ser nulo.");
         }
-        this.intersectionName = intersectionName.trim();
         this.observers = new ArrayList<>();
         this.currentState = initialState;
         this.remainingSeconds = initialState.getDurationSeconds();
@@ -61,19 +56,8 @@ public class ModernTrafficLight implements ITrafficLightContext {
     }
 
     @Override
-    public void resetCurrentStateTimer() {
-        this.remainingSeconds = currentState.getDurationSeconds();
-        notifyObservers();
-    }
-
-    @Override
     public int getRemainingSeconds() {
         return remainingSeconds;
-    }
-
-    @Override
-    public String getIntersectionName() {
-        return intersectionName;
     }
 
     @Override
@@ -97,32 +81,23 @@ public class ModernTrafficLight implements ITrafficLightContext {
     @Override
     public void notifyObservers() {
         for (ITrafficLightObserver observer : new ArrayList<>(observers)) {
-            observer.onTrafficLightUpdate(
-                    currentState.getStateName(),
-                    currentState.getColor(),
-                    remainingSeconds,
-                    currentState.getDurationSeconds(),
-                    currentState.getActionMessage()
-            );
+            observer.onTrafficLightUpdate(currentState.getColor(), remainingSeconds);
         }
     }
 
     @Override
     public String getStatusSummary() {
         int[] digits = SevenSegmentDecoder.splitTwoDigits(remainingSeconds);
-        String formattedCountdown = String.format("%02d", remainingSeconds);
         TrafficLightColor activeColor = currentState.getColor();
         return String.format(
-                "Intersección: %s | Estado: %s | [Lámpara 1 - Display 7 Segmentos: '%s' (Dígitos %d y %d) en color %s] | [Lámpara 2 - Luz Principal: %s (%s)] | Directriz: %s",
-                intersectionName,
+                "Estado: %s | [Lámpara 1 - Display 7 Segmentos: '%02d' (Dígitos %d y %d) en color %s] | [Lámpara 2 - Luz Principal: %s (%s)]",
                 currentState.getStateName(),
-                formattedCountdown,
+                remainingSeconds,
                 digits[0],
                 digits[1],
                 activeColor.getDisplayName(),
                 activeColor.getDisplayName(),
-                activeColor.getActiveHexColor(),
-                currentState.getActionMessage()
+                activeColor.getActiveHexColor()
         );
     }
 }
