@@ -16,6 +16,12 @@
         <module>Template</module>
         <!-- Agrega los demás a medida que metas las carpetas -->
         <module>Strategy</module>
+        <module>ChainOfResponsability</module>
+        <module>Command</module>
+        <module>Mediator</module>
+        <module>Memento</module>
+        <module>Iterator</module>
+        <module>State</module>
     </modules>
 
 </project>

@@ -1,1 +1,5 @@
 /target/
+/Strategy/target/
+/ChainOfResponsability/target/
+/Mediator/target/
+/Iterator/target/
