@@ -4,3 +4,5 @@
 /Mediator/target/
 /Iterator/target/
 /State/target/
+/Command/target/
+/Visitor/target/

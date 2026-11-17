@@ -22,6 +22,8 @@
         <module>Memento</module>
         <module>Iterator</module>
         <module>State</module>
+        <module>Visitor</module>
+        <module>Interpreter</module>
     </modules>
 
 </project>
